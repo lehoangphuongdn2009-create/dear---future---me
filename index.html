@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dear Future Me - Tiệm thư gửi tương lai</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream:#f8f3e9;
+  --paper:#fffdf7;
+  --brown:#604b39;
+  --dark:#382c24;
+  --gold:#b38a56;
+  --light:#eee4d5;
+  --green:#687c5b;
+  --red:#a75e50;
+}
+
+* {box-sizing:border-box;margin:0;padding:0}
+
+html {scroll-behavior:smooth}
+
+body {
+  background:var(--cream);
+  color:var(--dark);
+  font-family:'Quicksand',sans-serif;
+}
+
+h1,h2,h3 {
+  font-family:'Playfair Display',serif;
+}
+
+header {
+  background:var(--paper);
+  padding:17px 7%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:10;
+  border-bottom:1px solid #e5d8c7;
+}
+
+.logo {
+  font-family:'Playfair Display',serif;
+  font-size:24px;
+  color:var(--brown);
+  font-weight:bold;
+}
+
+nav {
+  display:flex;
+  gap:23px;
+  align-items:center;
+}
+
+nav a {
+  text-decoration:none;
+  color:var(--brown);
+  font-size:13px;
+  font-weight:bold;
+}
+
+nav a:hover {color:var(--gold)}
+
+button,.button {
+  cursor:pointer;
+  border:none;
+  font-family:inherit;
+  font-weight:700;
+  transition:.25s;
+}
+
+.btn {
+  display:inline-block;
+  padding:13px 24px;
+  border-radius:30px;
+  background:var(--brown);
+  color:white;
+  text-decoration:none;
+}
+
+.btn:hover {background:var(--gold);transform:translateY(-2px)}
+
+.hero {
+  min-height:570px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:50px 20px;
+  color:white;
+  background:
+  linear-gradient(#382c2480,#382c2480),
+  url('https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1600')
+  center/cover;
+}
+
+.hero .content {max-width:720px}
+
+.hero .sub {
+  letter-spacing:5px;
+  font-size:12px;
+  margin-bottom:25px;
+}
+
+.hero h1 {
+  font-size:clamp(45px,8vw,80px);
+  margin-bottom:20px;
+}
+
+.hero p {line-height:2;margin-bottom:30px}
+
+.hero .btn {
+  background:#f4e6d2;
+  color:var(--brown);
+}
+
+section {padding:75px 8%}
+
+.heading {
+  text-align:center;
+  margin-bottom:38px;
+}
+
+.heading h2 {
+  color:var(--brown);
+  font-size:clamp(27px,4vw,40px);
+  margin-bottom:12px;
+}
+
+.heading p {
+  font-size:14px;
+  color:#8b7865;
+  line-height:1.8;
+}
+
+.about {
+  max-width:780px;
+  margin:auto;
+  text-align:center;
+  line-height:2;
+  color:#76634f;
+}
+
+.services {background:#eee5d7}
+
+.cards {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+
+.card {
+  background:var(--paper);
+  border:1px solid #e5d7c5;
+  border-radius:13px;
+  overflow:hidden;
+  text-align:center;
+  padding-bottom:25px;
+  transition:.3s;
+}
+
+.card:hover {
+  transform:translateY(-5px);
+  box-shadow:0 10px 25px #604b3918;
+}
+
+.card img {
+  width:100%;
+  height:190px;
+  object-fit:cover;
+}
+
+.card h3 {
+  font-size:25px;
+  color:var(--brown);
+  margin:20px 0 10px;
+}
+
+.card p {
+  font-size:13px;
+  line-height:1.8;
+  padding:0 18px;
+  min-height:65px;
+  color:#877560;
+}
+
+.price {
+  display:block;
+  color:var(--gold);
+  font-weight:bold;
+  margin:13px;
+}
+
+.form-section {background:#f8f3e9}
+
+.form-box {
+  max-width:900px;
+  margin:auto;
+  padding:35px;
+  background:var(--paper);
+  border:1px solid #e5d7c5;
+  border-radius:13px;
+  box-shadow:0 10px 35px #604b3910;
+}
+
+.form-box h3 {
+  text-align:center;
+  font-size:30px;
+  color:var(--brown);
+  margin-bottom:10px;
+}
+
+.form-intro {
+  text-align:center;
+  font-size:13px;
+  color:#9a8671;
+  margin-bottom:30px;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.field {margin-bottom:17px}
+
+.field label {
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  color:var(--brown);
+  margin-bottom:9px;
+}
+
+.field input,.field select,.field textarea {
+  width:100%;
+  padding:13px;
+  border:1px solid #e3d5c2;
+  border-radius:7px;
+  background:#faf7ef;
+  outline:none;
+  font-family:inherit;
+  font-size:14px;
+  color:var(--dark);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color:var(--gold);
+}
+
+.field textarea {
+  height:190px;
+  resize:vertical;
+  line-height:1.8;
+}
+
+.full {grid-column:1/-1}
+
+.date-preview {
+  background:#f0e8da;
+  padding:18px;
+  border-radius:8px;
+  margin:5px 0 20px;
+  line-height:1.8;
+  color:var(--brown);
+  font-size:14px;
+}
+
+.date-preview strong {
+  color:var(--gold);
+  font-size:19px;
+}
+
+.check {
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  font-size:12px;
+  line-height:1.7;
+  margin:15px 0 20px;
+}
+
+.check input {margin-top:4px}
+
+.submit {
+  width:100%;
+  padding:16px;
+  background:var(--brown);
+  color:white;
+  border-radius:30px;
+  font-size:15px;
+}
+
+.submit:hover {background:var(--gold)}
+.submit:disabled {opacity:.5;cursor:wait}
+
+.notice {
+  display:none;
+  padding:20px;
+  background:#edf0e8;
+  color:#42553c;
+  margin-top:20px;
+  border-radius:10px;
+  line-height:1.9;
+  font-size:14px;
+}
+
+.dashboard {background:#eee5d7}
+
+.dash-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.stat {
+  padding:22px;
+  background:var(--paper);
+  border-radius:10px;
+  text-align:center;
+  border:1px solid #e5d7c5;
+}
+
+.stat strong {
+  display:block;
+  font-family:'Playfair Display',serif;
+  font-size:32px;
+  color:var(--gold);
+  margin-bottom:6px;
+}
+
+.stat span {font-size:12px;color:#8b7865}
+
+.order-list {
+  display:grid;
+  gap:15px;
+}
+
+.order {
+  background:var(--paper);
+  padding:22px;
+  border-radius:10px;
+  border:1px solid #e5d7c5;
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.order h3 {color:var(--brown);font-size:20px}
+
+.order p {
+  font-size:12px;
+  line-height:1.9;
+  color:#887661;
+}
+
+.status {
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:bold;
+  background:#f0eadb;
+  color:#80613d;
+}
+
+.status.done {background:#e3eddf;color:#526b4a}
+.status.error {background:#f5e3df;color:#a24d40}
+
+.small-btn {
+  padding:8px 13px;
+  border-radius:20px;
+  background:#eee4d5;
+  color:var(--brown);
+  font-size:12px;
+  margin:4px 2px;
+}
+
+.small-btn:hover {background:#d9c4a8}
+
+.delete-btn {background:#f4e3df;color:#a24d40}
+
+.empty {
+  text-align:center;
+  padding:40px 15px;
+  color:#98846d;
+  background:var(--paper);
+  border-radius:10px;
+}
+
+/* KHỐI TẠO MÃ QR */
+.qr-section {
+  background:#f8f3e9;
+}
+
+.qr-box {
+  max-width:780px;
+  margin:auto;
+  padding:32px;
+  background:var(--paper);
+  border:1px solid #e5d7c5;
+  border-radius:13px;
+  box-shadow:0 10px 35px #604b3910;
+  display:grid;
+  grid-template-columns:1.25fr 0.75fr;
+  gap:28px;
+  align-items:center;
+}
+
+.qr-controls label {
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  color:var(--brown);
+  margin-bottom:8px;
+}
+
+.qr-controls input {
+  width:100%;
+  padding:12px;
+  border:1px solid #e3d5c2;
+  border-radius:7px;
+  background:#faf7ef;
+  font-family:inherit;
+  font-size:13px;
+  color:var(--dark);
+  margin-bottom:12px;
+}
+
+.qr-status {
+  font-size:12px;
+  padding:9px 12px;
+  border-radius:8px;
+  margin-top:10px;
+  line-height:1.6;
+}
+
+.qr-status.ok {
+  background:#edf0e8;
+  color:#42553c;
+}
+
+.qr-status.warn {
+  background:#f7efe2;
+  color:#805b28;
+}
+
+.qr-preview-wrap {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:#faf7ef;
+  border:1px dashed #d7c4ab;
+  border-radius:12px;
+  padding:20px;
+  gap:12px;
+}
+
+#qrcode canvas, #qrcode img {
+  border-radius:8px;
+}
+
+.qr-url-caption {
+  font-size:11px;
+  color:#877560;
+  word-break:break-all;
+  text-align:center;
+}
+
+.quote {
+  background:var(--brown);
+  color:white;
+  text-align:center;
+  padding:85px 20px;
+}
+
+.quote h2 {font-size:clamp(26px,4vw,42px);margin-bottom:18px}
+.quote p {color:#ead9c6;line-height:2;font-size:13px}
+
+footer {
+  background:#30271f;
+  color:#e9d8c5;
+  text-align:center;
+  padding:35px 15px;
+  line-height:2;
+  font-size:12px;
+}
+
+footer strong {
+  font-family:'Playfair Display',serif;
+  font-size:23px;
+}
+
+@media(max-width:750px) {
+  header {padding:15px 4%;flex-wrap:wrap;gap:12px}
+  nav {gap:12px;flex-wrap:wrap}
+  nav a {font-size:11px}
+  .logo {font-size:19px}
+  .cards {grid-template-columns:1fr}
+  .grid {grid-template-columns:1fr}
+  .full {grid-column:auto}
+  .stats {grid-template-columns:1fr}
+  .qr-box {grid-template-columns:1fr;padding:22px 16px}
+  .form-box {padding:22px 16px}
+  section {padding:55px 5%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Dear Future Me ♡</div>
+  <nav>
+    <a href="#home">Trang chủ</a>
+    <a href="#about">Về tiệm</a>
+    <a href="#services">Dịch vụ</a>
+    <a href="#write">Viết thư</a>
+    <a href="#calendar">Lịch thư</a>
+    <a href="#qr-code">Mã QR</a>
+  </nav>
+</header>
+
+<!-- TRANG CHỦ -->
+
+<div class="hero" id="home">
+  <div class="content">
+    <div class="sub">A LETTER TO THE FUTURE</div>
+    <h1>Dear Future Me</h1>
+    <p>
+      Có những điều hôm nay muốn nói,<br>
+      nhưng hãy để dành cho một ngày mai.<br>
+      Gửi một chút hiện tại, nhận lại một trời ký ức.
+    </p>
+    <a href="#write" class="btn">Viết thư ngay ♡</a>
+  </div>
+</div>
+
+<!-- GIỚI THIỆU -->
+
+<section id="about">
+  <div class="heading">
+    <h2>Welcome to our little letter shop</h2>
+    <p>Một nơi để cảm xúc được lưu giữ qua thời gian.</p>
+  </div>
+  <div class="about">
+    Giữa thế giới mà mọi tin nhắn đều được gửi đi chỉ trong một giây,
+    Dear Future Me chọn một cách đặc biệt hơn: viết thư, niêm phong
+    và chờ đợi. Bạn có thể viết cho chính mình của 6 tháng sau,
+    gửi lời yêu thương đến một người đặc biệt hoặc lưu giữ
+    những ước mơ của tuổi trẻ trong một chiếc hộp thời gian.
+  </div>
+</section>
+
+<!-- DỊCH VỤ -->
+
+<section class="services" id="services">
+  <div class="heading">
+    <h2>Choose your little memory</h2>
+    <p>Mỗi lá thư là một câu chuyện riêng.</p>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?w=700" alt="Dear Me">
+      <h3>Dear Me</h3>
+      <p>Viết cho bản thân trong tương lai. Gửi gắm ước mơ, lời hứa và những điều chưa kịp nói.</p>
+      <span class="price">25.000đ</span>
+      <button class="btn" onclick="chooseService('Dear Me')">Chọn dịch vụ</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=700" alt="Dear You">
+      <h3>Dear You</h3>
+      <p>Một lá thư dành cho bạn bè, gia đình hoặc một người đặc biệt.</p>
+      <span class="price">35.000đ</span>
+      <button class="btn" onclick="chooseService('Dear You')">Chọn dịch vụ</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=700" alt="Time Capsule">
+      <h3>Time Capsule</h3>
+      <p>Lưu giữ thư, hình ảnh và những món đồ nhỏ trong chiếc hộp kỷ niệm.</p>
+      <span class="price">59.000đ</span>
+      <button class="btn" onclick="chooseService('Time Capsule')">Chọn dịch vụ</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- FORM VIẾT THƯ -->
+
+<section class="form-section" id="write">
+  <div class="heading">
+    <h2>Write a letter to the future</h2>
+    <p>Hãy để những điều đẹp đẽ của hiện tại được tiếp tục tồn tại.</p>
+  </div>
+
+  <div class="form-box">
+    <h3>Dear Future...</h3>
+    <p class="form-intro">Một lá thư nhỏ, một hành trình dài ♡</p>
+
+    <form id="letterForm">
+
+      <div class="grid">
+
+        <div class="field">
+          <label>Họ tên người gửi *</label>
+          <input id="sender" required placeholder="Tên của bạn">
+        </div>
+
+        <div class="field">
+          <label>Email người gửi *</label>
+          <input type="email" id="senderEmail" required placeholder="example@gmail.com">
+        </div>
+
+        <div class="field">
+          <label>Người nhận *</label>
+          <input id="receiver" required placeholder="Tên người nhận">
+        </div>
+
+        <div class="field">
+          <label>Email người nhận *</label>
+          <input type="email" id="receiverEmail" required placeholder="Email người nhận thư">
+        </div>
+
+        <div class="field">
+          <label>Số điện thoại</label>
+          <input type="tel" id="phone" placeholder="Số điện thoại">
+        </div>
+
+        <div class="field">
+          <label>Dịch vụ *</label>
+          <select id="service" required>
+            <option value="Dear Me">Dear Me - 25.000đ</option>
+            <option value="Dear You">Dear You - 35.000đ</option>
+            <option value="Time Capsule">Time Capsule - 59.000đ</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label>Thời gian nhận thư *</label>
+          <select id="months" required>
+            <option value="6">Sau 6 tháng</option>
+            <option value="12">Sau 1 năm</option>
+            <option value="60">Sau 5 năm</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label>Địa chỉ nhận thư (nếu đặt hộp thư giấy)</label>
+          <input id="address" placeholder="Địa chỉ nhận thư">
+        </div>
+
+        <div class="field full">
+          <label>Nội dung lá thư *</label>
+          <textarea id="content" required maxlength="3000"
+          placeholder="Dear me in the future,..."></textarea>
+          <div style="text-align:right;font-size:12px;color:#98846d">
+            <span id="count">0</span>/3000 ký tự
+          </div>
+        </div>
+
+        <div class="field full">
+          <label>Phong cách thư</label>
+          <select id="style">
+            <option>Vintage - Hoài cổ</option>
+            <option>Minimalist - Tối giản</option>
+            <option>Lovely - Dễ thương</option>
+            <option>Classic - Cổ điển</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="date-preview">
+        <div>✉ Ngày tạo thư: <span id="today"></span></div>
+        <div>♡ Ngày nhận thư dự kiến:</div>
+        <strong id="dueDate"></strong>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="consent" required>
+        <span>Tôi đồng ý cung cấp email để nhận thông báo và gửi thư theo lịch đã chọn. Tôi xác nhận địa chỉ email người nhận là chính xác.</span>
+      </label>
+
+      <button class="submit" type="submit" id="submitBtn">
+        Tạo lịch và gửi thư đến tương lai ♡
+      </button>
+
+    </form>
+
+    <div class="notice" id="success">
+      <h3>♡ Lá thư đã được tạo!</h3>
+      <p id="successText"></p>
+      <p>Hẹn gặp bạn vào ngày đặc biệt ấy!</p>
+      <button class="small-btn" onclick="document.getElementById('calendar').scrollIntoView({behavior:'smooth'})">
+        Xem lịch thư của tôi
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- LỊCH VÀ QUẢN LÝ -->
+
+<section class="dashboard" id="calendar">
+
+  <div class="heading">
+    <h2>Your letter calendar</h2>
+    <p>Nơi lưu giữ những cuộc hẹn với tương lai.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <strong id="total">0</strong>
+      <span>Tổng số thư</span>
+    </div>
+    <div class="stat">
+      <strong id="pending">0</strong>
+      <span>Thư đang chờ</span>
+    </div>
+    <div class="stat">
+      <strong id="sent">0</strong>
+      <span>Thư đã gửi</span>
+    </div>
+  </div>
+
+  <div class="dash-top">
+    <h3 style="font-family:'Playfair Display';color:#604b39">
+      Danh sách thư đã tạo
+    </h3>
+    <button class="small-btn" onclick="refreshOrders()">↻ Làm mới</button>
+  </div>
+
+  <div id="orders" class="order-list"></div>
+
+  <p style="font-size:12px;color:#806e5b;margin-top:20px;line-height:1.8">
+    * Đây là danh sách lịch lưu trên thiết bị đang sử dụng.
+    Không chia sẻ thiết bị nếu có thông tin thư riêng tư.
+  </p>
+
+</section>
+
+<!-- TẠO MÃ QR ĐỂ QUÉT MỞ -->
+
+<section class="qr-section" id="qr-code">
+  <div class="heading">
+    <h2>Scan to open</h2>
+    <p>Tạo mã QR để người khác quét camera điện thoại và mở trang web.</p>
+  </div>
+
+  <div class="qr-box">
+    <div class="qr-controls">
+      <label for="qrLinkInput">Link website để quét mở (nên dùng https://...):</label>
+      <input type="url" id="qrLinkInput" placeholder="https://ten-website-cua-ban.com">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <button type="button" class="small-btn" onclick="updateQRCode()">Tạo / Cập nhật QR</button>
+        <button type="button" class="small-btn" onclick="useCurrentPageLink()">Lấy link trang hiện tại</button>
+        <button type="button" class="small-btn" onclick="downloadQRCode()">Tải ảnh QR (.png)</button>
+      </div>
+      <div id="qrStatus" class="qr-status warn"></div>
+    </div>
+
+    <div class="qr-preview-wrap">
+      <div id="qrcode"></div>
+      <div class="qr-url-caption" id="qrCaption"></div>
+    </div>
+  </div>
+</section>
+
+<div class="quote">
+  <h2>"Gửi một chút hiện tại,<br>nhận lại một trời ký ức."</h2>
+  <p>Somewhere in the future, your past self is waiting for you.</p>
+</div>
+
+<footer>
+  <strong>Dear Future Me ♡</strong>
+  <p>A letter to the future, a memory for a lifetime.</p>
+  <p>Instagram: @dearfutureme</p>
+  <p>© 2026 Dear Future Me</p>
+</footer>
+
+<script>
+
+// ===================================
+// 1. CẤU HÌNH EMAILJS
+// ===================================
+
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+
+const emailReady =
+  EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY" &&
+  EMAILJS_SERVICE_ID !== "YOUR_SERVICE_ID" &&
+  EMAILJS_TEMPLATE_ID !== "YOUR_TEMPLATE_ID";
+
+if(emailReady && window.emailjs) {
+  emailjs.init({
+    publicKey: EMAILJS_PUBLIC_KEY
+  });
+}
+
+// ===================================
+// 2. HÀM NGÀY THÁNG
+// ===================================
+
+function formatDate(date) {
+  return date.toLocaleDateString("vi-VN", {
+    day:"2-digit",
+    month:"2-digit",
+    year:"numeric"
+  });
+}
+
+function addMonths(date, months) {
+  const d = new Date(date);
+  const day = d.getDate();
+
+  d.setDate(1);
+  d.setMonth(d.getMonth() + months);
+
+  const lastDay = new Date(
+    d.getFullYear(),
+    d.getMonth() + 1,
+    0
+  ).getDate();
+
+  d.setDate(Math.min(day,lastDay));
+  return d;
+}
+
+function calculateDate() {
+  const months = Number(
+    document.getElementById("months").value
+  );
+
+  const due = addMonths(new Date(),months);
+
+  document.getElementById("today").textContent =
+    formatDate(new Date());
+
+  document.getElementById("dueDate").textContent =
+    formatDate(due);
+}
+
+document.getElementById("months")
+.addEventListener("change",calculateDate);
+
+calculateDate();
+
+// ===================================
+// 3. CHỌN DỊCH VỤ
+// ===================================
+
+function chooseService(name) {
+  document.getElementById("service").value = name;
+
+  document.getElementById("write").scrollIntoView({
+    behavior:"smooth"
+  });
+}
+
+// ===================================
+// 4. ĐẾM KÝ TỰ
+// ===================================
+
+document.getElementById("content")
+.addEventListener("input",function() {
+  document.getElementById("count").textContent =
+    this.value.length;
+});
+
+// ===================================
+// 5. LƯU THƯ
+// ===================================
+
+function getOrders() {
+  return JSON.parse(
+    localStorage.getItem("dearFutureOrders") || "[]"
+  );
+}
+
+function saveOrders(orders) {
+  localStorage.setItem(
+    "dearFutureOrders",
+    JSON.stringify(orders)
+  );
+}
+
+// ===================================
+// 6. GỬI EMAIL
+// ===================================
+
+async function sendEmail(order,to,subject,message) {
+
+  if(!emailReady) {
+    throw new Error(
+      "Chưa cấu hình EmailJS. Vui lòng nhập Public Key, Service ID và Template ID."
+    );
+  }
+
+  return emailjs.send(
+    EMAILJS_SERVICE_ID,
+    EMAILJS_TEMPLATE_ID,
+    {
+      to_email:to,
+      subject:subject,
+      message:message,
+      sender_name:order.sender,
+      delivery_date:formatDate(
+        new Date(order.dueAt)
+      )
+    }
+  );
+}
+
+// ===================================
+// 7. TẠO LỊCH
+// ===================================
+
+document.getElementById("letterForm")
+.addEventListener("submit",async function(e) {
+
+  e.preventDefault();
+
+  const btn = document.getElementById("submitBtn");
+
+  const months = Number(
+    document.getElementById("months").value
+  );
+
+  const due = addMonths(new Date(),months);
+
+  const order = {
+    id:Date.now(),
+    sender:document.getElementById("sender").value.trim(),
+    senderEmail:document.getElementById("senderEmail").value.trim(),
+    receiver:document.getElementById("receiver").value.trim(),
+    receiverEmail:document.getElementById("receiverEmail").value.trim(),
+    phone:document.getElementById("phone").value,
+    address:document.getElementById("address").value,
+    service:document.getElementById("service").value,
+    content:document.getElementById("content").value,
+    style:document.getElementById("style").value,
+    dueAt:due.toISOString(),
+    reminderSent:false,
+    sent:false,
+    createdAt:new Date().toISOString(),
+    reminderError:false,
+    sendError:false
+  };
+
+  btn.disabled = true;
+  btn.textContent = "Đang tạo lịch...";
+
+  try {
+
+    const orders = getOrders();
+    orders.push(order);
+    saveOrders(orders);
+
+    if(emailReady) {
+      try {
+        await sendEmail(
+          order,
+          order.senderEmail,
+          "Dear Future Me - Xác nhận lịch gửi thư",
+          "Xin chào " + order.sender +
+          "! Lá thư của bạn đã được tạo thành công. " +
+          "Ngày nhận dự kiến: " + formatDate(due) +
+          ". Hẹn gặp bạn vào ngày đặc biệt ấy!"
+        );
+        order.confirmationSent = true;
+      } catch(err) {
+        console.error("Email xác nhận:",err);
+      }
+    }
+
+    saveOrders(getOrders().map(x =>
+      x.id === order.id ? order : x
+    ));
+
+    document.getElementById("successText").textContent =
+      "Mã thư: " + order.id +
+      " | Ngày nhận: " + formatDate(due) +
+      ". " +
+      (emailReady
+        ? "Lịch đã được lưu. Hệ thống sẽ kiểm tra lịch khi trang đang hoạt động."
+        : "Lịch đã được lưu trên thiết bị. Hãy cấu hình EmailJS để gửi email.");
+
+    document.getElementById("success").style.display = "block";
+
+    this.reset();
+    document.getElementById("count").textContent = "0";
+    calculateDate();
+    refreshOrders();
+
+    document.getElementById("success").scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+
+  } catch(err) {
+    alert("Có lỗi xảy ra: " + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Tạo lịch và gửi thư đến tương lai ♡";
+  }
+
+});
+
+// ===================================
+// 8. NHẮC HẸN VÀ GỬI THƯ ĐẾN HẠN
+// ===================================
+
+let checking = false;
+
+async function checkSchedules() {
+
+  if(checking) return;
+  checking = true;
+
+  try {
+
+    let orders = getOrders();
+    const now = Date.now();
+
+    for(let order of orders) {
+
+      const due = new Date(order.dueAt).getTime();
+      const oneDay = 24 * 60 * 60 * 1000;
+
+      if(
+        !order.reminderSent &&
+        !order.reminderError &&
+        due > now &&
+        due - now <= oneDay
+      ) {
+
+        if(emailReady) {
+          try {
+
+            await sendEmail(
+              order,
+              order.senderEmail,
+              "Dear Future Me - Ngày nhận thư sắp đến!",
+              "Xin chào " + order.sender +
+              "! Ngày mai là ngày lá thư dành cho " +
+              order.receiver +
+              " được gửi đi. Hãy cùng chờ đón nhé!"
+            );
+
+            order.reminderSent = true;
+
+          } catch(err) {
+            console.error("Lỗi nhắc hẹn:",err);
+            order.reminderError = true;
+          }
+        }
+
+        if(
+          "Notification" in window &&
+          Notification.permission === "granted"
+        ) {
+          new Notification(
+            "Dear Future Me ♡",
+            {
+              body:"Một lá thư của bạn sắp đến ngày nhận!"
+            }
+          );
+        }
+      }
+
+      if(
+        !order.sent &&
+        !order.sendError &&
+        due <= now
+      ) {
+
+        if(emailReady) {
+
+          try {
+
+            await sendEmail(
+              order,
+              order.receiverEmail,
+              "♡ Một lá thư từ quá khứ dành cho bạn",
+              "Dear " + order.receiver +
+              ",\n\n" +
+              "Bạn vừa nhận được một lá thư từ " +
+              order.sender +
+              ".\n\n" +
+              order.content +
+              "\n\nThân mến,\nDear Future Me ♡"
+            );
+
+            order.sent = true;
+            order.sentAt = new Date().toISOString();
+
+            await sendEmail(
+              order,
+              order.senderEmail,
+              "Dear Future Me - Lá thư đã được gửi!",
+              "Xin chào " + order.sender +
+              "! Lá thư của bạn dành cho " +
+              order.receiver +
+              " đã được gửi thành công. Cảm ơn bạn đã đồng hành cùng Dear Future Me!"
+            );
+
+          } catch(err) {
+            console.error("Lỗi gửi thư:",err);
+            order.sendError = true;
+          }
+
+        } else {
+          order.sendError = true;
+        }
+
+      }
+
+    }
+
+    saveOrders(orders);
+    refreshOrders();
+
+  } finally {
+    checking = false;
+  }
+}
+
+checkSchedules();
+setInterval(checkSchedules,60000);
+
+document.addEventListener(
+  "visibilitychange",
+  () => {
+    if(!document.hidden) checkSchedules();
+  }
+);
+
+// ===================================
+// 9. HIỂN THỊ DANH SÁCH THƯ
+// ===================================
+
+function refreshOrders() {
+
+  const orders = getOrders();
+  const container = document.getElementById("orders");
+
+  document.getElementById("total").textContent =
+    orders.length;
+
+  document.getElementById("pending").textContent =
+    orders.filter(x => !x.sent).length;
+
+  document.getElementById("sent").textContent =
+    orders.filter(x => x.sent).length;
+
+  if(orders.length === 0) {
+    container.innerHTML =
+      '<div class="empty">Chưa có lá thư nào.<br>Hãy viết lá thư đầu tiên của bạn ♡</div>';
+    return;
+  }
+
+  container.innerHTML = "";
+
+  orders.sort((a,b) =>
+    new Date(a.dueAt)-new Date(b.dueAt)
+  );
+
+  orders.forEach(order => {
+
+    const status = order.sent
+      ? '<span class="status done">Đã gửi</span>'
+      : order.sendError
+      ? '<span class="status error">Cần kiểm tra</span>'
+      : '<span class="status">Đang chờ</span>';
+
+    const div = document.createElement("div");
+    div.className = "order";
+
+    const info = document.createElement("div");
+    const title = document.createElement("h3");
+    title.textContent = order.service + " ♡";
+
+    const details = document.createElement("p");
+    details.textContent =
+      "Người gửi: " + order.sender +
+      " | Người nhận: " + order.receiver +
+      " | Ngày nhận: " + formatDate(new Date(order.dueAt));
+
+    info.append(title,details);
+
+    const actions = document.createElement("div");
+    actions.innerHTML = status;
+
+    const view = document.createElement("button");
+    view.className = "small-btn";
+    view.textContent = "Xem thư";
+    view.onclick = () => viewLetter(order.id);
+
+    const remove = document.createElement("button");
+    remove.className = "small-btn delete-btn";
+    remove.textContent = "Xóa";
+    remove.onclick = () => deleteOrder(order.id);
+
+    actions.append(view,remove);
+    div.append(info,actions);
+    container.append(div);
+  });
+}
+
+function viewLetter(id) {
+  const order = getOrders().find(x => x.id === id);
+  if(!order) return;
+
+  alert(
+    "MÃ THƯ: " + order.id +
+    "\nNgười gửi: " + order.sender +
+    "\nEmail gửi: " + order.senderEmail +
+    "\nNgười nhận: " + order.receiver +
+    "\nEmail nhận: " + order.receiverEmail +
+    "\nNgày nhận: " + formatDate(new Date(order.dueAt)) +
+    "\n\nNỘI DUNG:\n" + order.content
+  );
+}
+
+function deleteOrder(id) {
+  if(!confirm("Em có chắc muốn xóa lịch này không?")) return;
+
+  saveOrders(getOrders().filter(x => x.id !== id));
+  refreshOrders();
+}
+
+refreshOrders();
+
+// ===================================
+// 10. TẠO VÀ TẢI MÃ QR CÓ THỂ QUÉT MỞ
+// ===================================
+
+function normalizeUrl(raw) {
+  const trimmed = (raw || "").trim();
+  if (!trimmed) return "";
+  if (/^https?:\/\//i.test(trimmed) || /^file:\/\//i.test(trimmed)) {
+    return trimmed;
+  }
+  return "https://" + trimmed;
+}
+
+function updateQRStatus(url) {
+  const statusEl = document.getElementById("qrStatus");
+  if (/^https?:\/\//i.test(url)) {
+    statusEl.className = "qr-status ok";
+    statusEl.textContent = "Sẵn sàng quét mở trên điện thoại bằng link: " + url;
+  } else {
+    statusEl.className = "qr-status warn";
+    statusEl.textContent = "Đang dùng link cục bộ (file:///...). Điện thoại sẽ không mở được link này nếu chưa đưa web lên mạng (https://...).";
+  }
+}
+
+function renderQR(urlText) {
+  const container = document.getElementById("qrcode");
+  const caption = document.getElementById("qrCaption");
+  const normalized = normalizeUrl(urlText) || window.location.href;
+
+  document.getElementById("qrLinkInput").value = normalized;
+  container.innerHTML = "";
+
+  new QRCode(container, {
+    text: normalized,
+    width: 168,
+    height: 168,
+    colorDark: "#604b39",
+    colorLight: "#faf7ef",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  caption.textContent = normalized;
+  updateQRStatus(normalized);
+}
+
+function updateQRCode() {
+  const val = document.getElementById("qrLinkInput").value;
+  const normalized = normalizeUrl(val) || window.location.href;
+  localStorage.setItem("dearFutureQrUrl", normalized);
+  renderQR(normalized);
+}
+
+function useCurrentPageLink() {
+  const current = window.location.href;
+  localStorage.setItem("dearFutureQrUrl", current);
+  renderQR(current);
+}
+
+function downloadQRCode() {
+  const canvas = document.querySelector("#qrcode canvas");
+  const img = document.querySelector("#qrcode img");
+  let dataUrl = "";
+
+  if (canvas) {
+    dataUrl = canvas.toDataURL("image/png");
+  } else if (img && img.src) {
+    dataUrl = img.src;
+  }
+
+  if (!dataUrl) return;
+
+  const link = document.createElement("a");
+  link.download = "dear-future-me-qr.png";
+  link.href = dataUrl;
+  link.click();
+}
+
+(function initQR() {
+  const isHostedHttp = /^https?:\/\//i.test(window.location.href);
+  const savedUrl = localStorage.getItem("dearFutureQrUrl");
+  const initialUrl = isHostedHttp ? window.location.href : (savedUrl || window.location.href);
+  renderQR(initialUrl);
+})();
+
+// ===================================
+// 11. XIN QUYỀN THÔNG BÁO
+// ===================================
+
+if("Notification" in window &&
+   Notification.permission === "default") {
+
+  Notification.requestPermission();
+}
+
+</script>
+
+</body>
+</html>
